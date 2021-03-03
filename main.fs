@@ -81,11 +81,11 @@ Forward composition operator composes two functions into one.
 *)
 
 let gramToMetricTon =
-    fun x->x let divBy1000 =
-    fun x->x/1000.0
+    fun (x:float) -> x
+    divBy1000 >> divBy1000
 
 let poundToKilogram =
-    fun x->x 
+    fun (x:float) -> x
     poundToOunce >> ounceToGram >> gramToKilogram
 
 let shortTonToMetricTon =
