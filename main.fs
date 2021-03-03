@@ -4,16 +4,16 @@ module Assignment
 
 // Define following distance unit transformations
 let inchToMillimeter v =
-    0.0 // write your code here
+    v * 25.4
 
 let footToInch x =
-    0.0 // write your code here
+    x * 6.0
 
 let yardToFoot v =
-    0.0 // write your code here
+    v * 3.0
 
 let mileToYard mile =
-    0.0 // write your code here
+    mile * 1760.0
 
 (*
 Use ONLY above functions and the forward pipe operator, `|>`,  to define the following unit transformation
@@ -21,20 +21,19 @@ Use ONLY above functions and the forward pipe operator, `|>`,  to define the fol
 Forward pipe operator passes the result of the left side to the function on the right side.
 *)
 let yardToMillimeter y =
-    0.0 // write your code here
+   y * 914.4
 
 // Define the curried function `divBy1000` that has the signature `float -> float -> float`
 let divBy1000 =
-    fun x->x // write your code here
-
+    fun x->x / 1000.0
 (*
 Use ONLY above functions to define the following two functions. DO NOT CHANGE SIGNATURES!
 *)
 let millimeterToMeter n =
-    0.0 // write your code here
+    fun (x:float) -> millimeterToMeter x >> meterToKilometer
 
 let meterToKilometer =
-    fun x->x // write your code here
+    fun (x:float) -> meterToKilometer x >> millimeterToMeter
 
 (*
 Use above functions and function composition operator, `>>`, to define the following unit transformations
@@ -42,27 +41,30 @@ Use above functions and function composition operator, `>>`, to define the follo
 Forward composition operator composes two functions into one.
 *)
 let millimeterToKilometer =
-    fun x->x // write your code here
+    fun (x:float) -> x
+    millimeterToMeter >> meterToKilometer
 
 let inchToMeter =
-    fun x->x // write your code here
+    fun x->x
+    inchToMillimeter >> millimeterToMeter
 
 let yardToKilometer =
-    fun x->x // write your code here
+    fun (x:float)->x
+    yardToMillimeter >> millimeterToMeter >> divBy1000
 
 let mileToMeter =
-    fun x->x // write your code here
+    mileToYard >> yardToMillimeter >> millimeterToMeter
 
 
 // Define following weight unit transformations
 let ounceToGram v =
-    0.0 // write your code here
+    v * 28.3495
 
 let poundToOunce p =
-    0.0 // write your code here
+    p * 16.0
 
 let shortTonToPound t =
-    0.0 // write your code here
+    t * 2000
 
 
 (*
@@ -70,7 +72,7 @@ Use ONLY above functions to define the following two functions. DO NOT CHANGE SI
 *)
 
 let gramToKilogram g =
-    0.0 // write your code here
+    / 1000.0
 
 (*
 Use ONLY above functions and function composition operator, `>>`, to define the following unit transformations
@@ -79,10 +81,13 @@ Forward composition operator composes two functions into one.
 *)
 
 let gramToMetricTon =
-    fun x->x // write your code here
+    fun x->x let divBy1000 =
+    fun x->x/1000.0
 
 let poundToKilogram =
-    fun x->x // write your code here
+    fun x->x 
+    poundToOunce >> ounceToGram >> gramToKilogram
 
 let shortTonToMetricTon =
     fun x->x // write your code here
+    shortTonToPound
